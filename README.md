@@ -2,9 +2,9 @@
 ### Http协议
   HTTP（Hypertext Transfer Protocol）：超文本传输协议。是一个应用层协议
   一个HTTP的请求包括：请求行(request line)、请求头部(header)、空行 和 请求数据 四个部分组成。
- 一个http协议的结构如图：
- ![](https://github.com/qiujunlin/MyTomcat/blob/master/src/main/resources/http%E8%AF%B7%E6%B1%82%E5%A4%B4.webp)
- 请求格式：
+-  一个http协议的结构如图：
+ ![http](https://github.com/qiujunlin/MyTomcat/blob/master/src/main/resources/http%E8%AF%B7%E6%B1%82%E5%A4%B4.webp "http")
+-  请求格式：
   
   ```html
 GET /Servlet2 HTTP/1.1
@@ -28,7 +28,26 @@ Accept-Language: zh-CN,zh;q=0.9
 
 #### 结果
 
+![result](https://github.com/qiujunlin/MyTomcat/blob/master/src/main/resources/result.png "result")
 
+####  tomcat的简单原理
+![tomcat](https://github.com/qiujunlin/MyTomcat/blob/master/src/main/resources/tomcat.png "tomcat")
 
+- 一个http请求的处理流程
+
+1. 用户在浏览器中输入网址localhost:8080/test/index.jsp，请求被发送到本机端口8080，被在那里监听的Coyote HTTP/1.1 Connector获得；
+
+2. Connector把该请求交给它所在的Service的Engine（Container）来处理，并等待Engine的回应；
+
+3. Engine获得请求localhost/Servlt1，匹配所有的虚拟主机Host；
+
+4. Engine匹配到名为localhost的Host（即使匹配不到也把请求交给该Host处理，因为该Host被定义为该Engine的默认主机），名为localhost的Host获得请求/Servlet1，匹配它所拥有的所有Context。Host匹配到路径为/Servlet1的Context（如果匹配不到就把该请求交给路径名为“ ”的Context去处理）；
+
+5. path=“/Servlet1”的Context获得请求p，在它的mapping中寻找出对应的Servlet。Context匹配到URL Pattern为Servlet1的Servlet
+6. 构造HttpServletRequest对象和HttpServletResponse对象，作为参数调用JspServlet的doGet()或doPost(),执行业务逻辑、数据存储等；
+7. Context把执行完之后的HttpServletResponse对象返回给Host；
+8. Host把HttpServletResponse对象返回给Engine；
+9. Engine把HttpServletResponse对象返回Connector；
+10. Connector把HttpServletResponse对象返回给客户Browser。
 
 
