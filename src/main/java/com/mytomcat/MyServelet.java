@@ -1,5 +1,6 @@
 package com.mytomcat;
 
+//servlet 的父类  相当于 HttpServlet
 
 public abstract class MyServelet {
 	

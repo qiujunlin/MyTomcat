@@ -2,8 +2,9 @@ package com.mytomcat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
-
+//封装请求
 public class MyRequest {
 	
 	private String url;
@@ -19,11 +20,13 @@ public class MyRequest {
 		if((length = inputStream.read(httpRequestBytes)) > 0) {
 			httpRequest = new String(httpRequestBytes, 0, length);
 		}
-				String httpHead = httpRequest.split("\n")[0];
-		System.out.println(httpHead);
-		method = httpHead.split("\\s")[0];
-		url = httpHead.split("\\s")[1];
-		System.out.println(this.toString());
+		String top = httpRequest.split("\n")[0];
+		String tops[] = top.split("\\s");
+		System.out.println("请求行："+Arrays.toString(tops));
+		method = tops[0];
+		url = tops[1];
+		System.out.println("请求头："+httpRequest);
+		
 	}
 
 	public String getUrl() {

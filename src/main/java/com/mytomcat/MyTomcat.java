@@ -21,44 +21,33 @@ public class MyTomcat {
 	public void start() {
 		initServletMapping();
 		
-		while(true) {
-			ServerSocket serverSocket = null;     //ʵ����һ�� ServerSocket ���󣬱�ʾͨ���������ϵĶ˿�ͨ��
+while(true) {
+			ServerSocket serverSocket = null;    
 			try {
 				serverSocket = new ServerSocket(port);   
-				System.out.println("MyTomcat is starting...");
+				System.out.println("MyTomcat is starting...,端口："+port);
 				while(true) {
-					Socket socket = serverSocket.accept();     //���������� ServerSocket ��� accept() �������÷�����һֱ�ȴ���ֱ���ͻ������ӵ��������ϸ����Ķ˿� 
+					Socket socket = serverSocket.accept();   
 					InputStream inputStream = socket.getInputStream();
 					OutputStream outputStream = socket.getOutputStream();
-					
 					MyRequest myRequest = new MyRequest(inputStream);
 					MyResponse myResponse = new MyResponse(outputStream);
-					
 					dispatch(myRequest, myResponse);
 					socket.close();
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-		}
-//		}finally {
-//			if(serverSocket != null) {
-//				try {
-//					serverSocket.close();
-//				}catch(Exception e){
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-	}
+}
 	
+	}
+	//tomcat启动的时候自动加载 配置文件
 	public void initServletMapping() {
 		for(ServeletMapping servletMapping : ServeletMappingConfig.serveletMappingList) {
 			urlServletMapping.put(servletMapping.getUrl(), servletMapping.getClazz());
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
+	//tomcat通过请求路径 反射去执行相应的类
 	public void dispatch(MyRequest myRequest, MyResponse myResponse) {
 		String clazz = urlServletMapping.get(myRequest.getUrl());
 		
@@ -74,10 +63,5 @@ public class MyTomcat {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) {
-        MyTomcat myTomcat = new MyTomcat(8080);
-        myTomcat.start();
-    }
-	
+
 }

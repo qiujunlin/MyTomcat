@@ -1,5 +1,5 @@
 package com.mytomcat;
-
+// 封装servlet映射信息
 public class ServeletMapping {
 	private String servletName;
 	private String url;
