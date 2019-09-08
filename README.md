@@ -3,6 +3,7 @@
   HTTP（Hypertext Transfer Protocol）：超文本传输协议。是一个应用层协议
   一个HTTP的请求包括：请求行(request line)、请求头部(header)、空行 和 请求数据 四个部分组成。
  一个http协议的结构如图：
+ ![](https://github.com/qiujunlin/MyTomcat/blob/master/src/main/resources/http%E8%AF%B7%E6%B1%82%E5%A4%B4.webp)
  请求格式：
   
   ```html
